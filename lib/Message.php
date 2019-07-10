@@ -8,6 +8,6 @@ class Message
     public function __construct($text)
     {
         $this->text = $text;
-        $this->timestamp = microtime(true);
+        $this->timestamp = microtime();
     }
 }

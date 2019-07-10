@@ -3,6 +3,7 @@
 class App
 {
     protected $bot;
+    protected static $debug;
     protected static $stdin;
     protected static $colors = [
         'black'        => '0;30',
@@ -23,8 +24,9 @@ class App
         'white'        => '1;37',
     ];
 
-    public function __construct()
+    public function __construct($debug = false)
     {
+        static::$debug = $debug;
         static::$stdin = fopen('php://stdin', 'r');
     }
 
@@ -57,14 +59,29 @@ class App
     /**
      * Output a message to the user
      * 
-     * @param Output $output
+     * @param Output|string $output
      */
     public static function output($output, $color = 'yellow')
     {
-        echo "\n";
+        echo PHP_EOL;
         echo "\033[" . static::$colors[$color] . "m";
-        echo $output->text;
-        echo "\033[0m"; 
-        echo "\n\n";
+        echo $output instanceof Output ? $output->text : $output;
+        echo "\033[0m";
+        echo PHP_EOL . PHP_EOL;
+    }
+
+    /**
+     * Output a debug message
+     * 
+     * @param string $text
+     */
+    public static function debug($text, $color = 'light_red')
+    {
+        if (static::$debug) {
+            echo "\033[" . static::$colors[$color] . "m";
+            echo "\t$text";
+            echo "\033[0m";
+            echo PHP_EOL;
+        }
     }
 }
