@@ -1,6 +1,6 @@
 <?php
 
-class SessionManager
+class App
 {
     protected static $stdin;
     protected static $initialized = false;

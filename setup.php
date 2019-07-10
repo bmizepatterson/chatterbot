@@ -2,4 +2,4 @@
 
 define('SESSION_START', microtime(true));
 
-require './lib/SessionManager.php';
+require './lib/App.php';
