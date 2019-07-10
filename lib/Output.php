@@ -1,18 +1,10 @@
 <?php
 
-class Output
+class Output extends Message
 {
-    public $message;
-    public $time;
 
-    public function __construct($message)
+    public static function create($text)
     {
-        $this->message = $message;
-        $this->time = microtime(true);
-    }
-
-    public static function create($message)
-    {
-        return new Output($message);
+        return new Output($text);
     }
 }

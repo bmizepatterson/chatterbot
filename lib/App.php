@@ -34,7 +34,7 @@ class App
             try {
                 echo ">  ";
                 $input = static::prepareInput(fgets(static::$stdin));
-                if ($input) return $input;
+                if ($input) return Input::create($input);
             } catch (Exception $e) {
                 break;
             }
@@ -63,7 +63,7 @@ class App
     {
         echo "\n";
         echo "\033[" . static::$colors[$color] . "m";
-        echo $output->message;
+        echo $output->text;
         echo "\033[0m"; 
         echo "\n\n";
     }

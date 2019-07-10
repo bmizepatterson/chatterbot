@@ -12,7 +12,7 @@ class ChatterBot
         $this->greet();
 
         // For now, just repeat the user input back to them
-        $this->say('You said: "' . App::getInput() . '"');
+        $this->say('You said: "' . App::getInput()->text . '"');
     }
 
     protected function greet()
