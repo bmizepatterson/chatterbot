@@ -36,8 +36,13 @@ class App
         return $this->bot;
     }
 
-    public function output($message)
+    /**
+     * Output a message to the user
+     * 
+     * @param Output $output
+     */
+    public function output($output)
     {
-        echo $message . "\n\n";
+        echo "\n\n" . $output->message . "\n\n";
     }
 }
