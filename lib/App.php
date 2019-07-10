@@ -2,28 +2,42 @@
 
 class App
 {
-    protected static $stdin;
-    protected static $initialized = false;
+    protected $stdin;
+    protected $bot;
 
-    public static function init()
+    public function __construct()
     {
-        if (!static::$initialized) {
-            static::$stdin = fopen('php://stdin', 'r');
-        }
-        static::$initialized = true;
+        $this->stdin = fopen('php://stdin', 'r');
     }
 
-    public static function getInput()
+    public function getInput()
     {
         while (true) {
-            echo ">  ";
-            $input = static::prepareInput(fgets(static::$stdin));
-            if ($input) return $input;
+            try {
+                echo ">  ";
+                $input = $this->prepareInput(fgets($this->stdin));
+                if ($input) return $input;
+            } catch (Exception $e) {
+                break;
+            }
         }
     }
 
     protected function prepareInput($input)
     {
         return trim($input);
+    }
+
+    public function getBot()
+    {
+        if (is_null($this->bot)) {
+            return new ChatterBot($this);
+        }
+        return $this->bot;
+    }
+
+    public function output($message)
+    {
+        echo $message . "\n\n";
     }
 }

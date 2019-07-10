@@ -2,8 +2,8 @@
 
 require __DIR__.'/setup.php';
 
-App::init();
+$app = new App();
 
-echo "Hello! I'm a chatterbot. How are you?\n\n";
+$app->getBot()->greet();
 
-echo 'You said: ' . App::getInput();
+$app->output('You said: ' . $app->getInput());
