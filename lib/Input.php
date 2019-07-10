@@ -34,28 +34,39 @@ class Input extends Message
 
     public function isRequestForExit()
     {
-        if ($this->matches([
+        return $this->matches([
             '/(good)?( |-)?bye$/i',
             '/see y(a|ou) ?(later)?$/i',
-        ])) {
-            return true;
-        }
-        return false;
+        ]) || $this->matches('/^(quit|end|exit|log o(ff|ut))$/i', true);
     }
 
     /**
      * Test whether a regex or array of regexes matches the text
      * 
      * @param array $regex  The regexes to search
+     * @param boolean $global Whether to test against the entire input string
+     *                        or against each individual input unit
      */
-    protected function matches($regexes)
+    protected function matches($regexes, $global = false)
     {
         if (!is_array($regexes)) {
             $regexes = [$regexes];
         }
-        foreach ($this->units as $unit) {
+
+        // Global searches test against the entire input string
+        if ($global) {
             foreach ($regexes as $regex) {
                 if (preg_match($regex, $this->text)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Unit searches test against each input unit
+        foreach ($this->units as $unit) {
+            foreach ($regexes as $regex) {
+                if (preg_match($regex, $unit)) {
                     return true;
                 }
             }
