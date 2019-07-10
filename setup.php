@@ -1,3 +1,5 @@
 <?php
 
-// include files
+define('SESSION_START', microtime(true));
+
+require './lib/SessionManager.php';
