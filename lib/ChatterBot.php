@@ -2,13 +2,7 @@
 
 class ChatterBot
 {
-    protected $app;
     protected $lastOutput;
-
-    public function __construct($app)
-    {
-        $this->app = $app;
-    }
 
     /**
      * Begin the conversation
@@ -18,7 +12,7 @@ class ChatterBot
         $this->greet();
 
         // For now, just repeat the user input back to them
-        $this->say('You said: ' . $this->app->getInput());
+        $this->say('You said: "' . App::getInput() . '"');
     }
 
     protected function greet()
@@ -28,6 +22,7 @@ class ChatterBot
 
     protected function say($message)
     {
-        $this->app->output(Output::create($message));
+        $this->lastOutput = $message;
+        App::output(Output::create($message));
     }
 }
